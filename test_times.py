@@ -1,5 +1,5 @@
 from times import compute_overlap_time, time_range  # Put all imports from times.py on 1 line
-
+import pytest
 
 def test_different_sizes():
     large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
@@ -31,4 +31,8 @@ def test_immediate_continue():
     result = compute_overlap_time(periodone, periodtwo)
     expected = [('2010-01-12 12:00:00', '2010-01-12 12:00:00')]
     assert result == expected
+
+def test_reverse_time():
+    with pytest.raises(ValueError): # Makes sure there is a value error here
+        time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00")
 
