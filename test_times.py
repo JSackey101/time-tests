@@ -1,6 +1,7 @@
 from times import compute_overlap_time, time_range  # Put all imports from times.py on 1 line
 import pytest
 
+
 def test_different_sizes():
     large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
     short = time_range("2010-01-12 10:30:00", "2010-01-12 10:45:00", 2, 60)
@@ -25,6 +26,7 @@ def test_several_intervals():
                 ('2010-01-12 10:38:00', '2010-01-12 10:29:00'), ('2010-01-12 10:38:00', '2010-01-12 10:45:00')]
     assert result == expected
 
+
 def test_immediate_continue():
     periodone = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
     periodtwo = time_range("2010-01-12 12:00:00", "2010-01-12 15:00:00")
@@ -32,7 +34,7 @@ def test_immediate_continue():
     expected = [('2010-01-12 12:00:00', '2010-01-12 12:00:00')]
     assert result == expected
 
-def test_reverse_time():
-    with pytest.raises(ValueError): # Makes sure there is a value error here
-        time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00")
 
+def test_reverse_time():
+    with pytest.raises(ValueError, match="Time Range Provided goes backwards in time" ):  # Makes sure there is a value error here
+        time_range("2010-01-12 12:00:00", "2010-01-12 10:00:00")
